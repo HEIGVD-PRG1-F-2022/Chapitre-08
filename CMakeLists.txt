@@ -12,4 +12,4 @@ FetchContent_Declare(libdio
 FetchContent_MakeAvailable(libdio)
 
 add_subdirectory(Exo_8_a)
-target_link_libraries(Exo_8_a PRIVATE libdio)
+add_subdirectory(Exo_8_b)

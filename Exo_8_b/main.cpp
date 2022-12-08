@@ -4,6 +4,15 @@
 
 using namespace std;
 
+template <typename T, size_t N> class NTuple;
+
+// Pour les opérateurs 'friend', ils doivent être définis AVANT la
+// déclaration.
+template <typename T, size_t N>
+NTuple<T, N> operator+(NTuple<T, N> lhs, const NTuple<T, N> &rhs) {
+  return lhs += rhs;
+}
+
 template <typename T, size_t N> class NTuple {
   std::array<T, N> list;
 
@@ -16,7 +25,7 @@ public:
 
   NTuple &operator+=(const NTuple &lhs);
 
-  friend NTuple operator+(NTuple lhs, const NTuple &rhs) { return lhs += rhs; }
+  friend NTuple operator+<>(NTuple lhs, const NTuple &rhs);
 
   // Ou alors, en séparé:
 
@@ -74,11 +83,6 @@ NTuple<T, N> &NTuple<T, N>::operator+=(const NTuple<T, N> &lhs) {
     list.at(i) += lhs.list.at(i);
   }
   return *this;
-}
-
-template <typename T, size_t N>
-NTuple<T, N> operator+(NTuple<T, N> lhs, const NTuple<T, N> &rhs) {
-  return lhs += rhs;
 }
 
 // Définition de la class NTuple ici
